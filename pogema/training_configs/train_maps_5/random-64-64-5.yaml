@@ -1,0 +1,5 @@
+grid_config:
+  num_agents: 8
+  density: 0.05
+  size: 8
+  map_name: random-8-8-5

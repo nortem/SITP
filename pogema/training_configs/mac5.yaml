@@ -1,0 +1,40 @@
+name: pogema-appo-multiple-configs-autocurriculum-rollout
+
+global_settings:
+  use_wandb: True
+experiment_settings:
+  save_every_sec: 120
+  encoder_custom: pogema_residual
+  train_for_env_steps: 100000000
+async_ppo:
+  experiment_summaries_interval: 5
+  ppo_epochs: 1
+  batch_size: 4096
+  use_rnn: True
+  max_grad_norm: 0.0
+  num_workers: 6
+  num_envs_per_worker: 6
+  with_pbt: False
+  rollout: 32
+  recurrence: 32
+environment:
+  name: Pogema-v0
+  framestack: 1
+  max_episode_steps: 32
+  # path_to_grid_configs: training_configs/train_maps_5
+  autocurriculum: 
+    curriculum_type: 
+      grid_search: ['SITP']
+    map_config: training_configs/train_maps_5
+    experiment_name: 's8-a8-r32'
+    param:
+      p_temperature: 
+        grid_search: [120]
+      p_more:
+        grid_search: [0.5]
+      a_smooth:
+        grid_search: [0.1, 0.2]
+  grid_config:
+    num_agents: 8
+    density: 0.3
+    size: 8

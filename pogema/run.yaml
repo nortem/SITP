@@ -1,0 +1,16 @@
+container:
+ image: "pogema:latest"
+ command: 'python main.py --config_path=training_configs/mac10.yaml'
+#  command: bash
+ tty: True
+ environment:
+  - "WANDB_API_KEY=<YOUR API KEY>"
+  - "OMP_NUM_THREADS=1"
+  - "MKL_NUM_THREADS=1"
+  - "NVIDIA_VISIBLE_DEVICES=0"
+code:
+ folder: "."
+
+host_config:
+ shm_size: '4096m'
+ runtime: nvidia
