@@ -1,0 +1,16 @@
+container:
+ image: "plr:latest"
+ command: "python -m train --env_name miner --num_processes=64 --level_replay_strategy='value_l1' --level_replay_score_transform='rank' --level_replay_temperature=0.1 --staleness_coef=0.1"
+#  command: bash
+ tty: True
+ environment:
+  - "WANDB_API_KEY=<YOUR API KEY>"
+  - "OMP_NUM_THREADS=1"
+  - "MKL_NUM_THREADS=1"
+  - "NVIDIA_VISIBLE_DEVICES=0"
+code:
+ folder: "."
+
+host_config:
+ shm_size: '4096m'
+ runtime: nvidia

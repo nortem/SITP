@@ -1,0 +1,29 @@
+
+pip install -r requirements.txt
+apt update
+apt install -y cmake
+
+apt install -y qt5-default
+
+cd procgen 
+python setup.py install
+cd ..
+cd baselines 
+python setup.py install
+cd ..
+cd gym-minigrid 
+pip install -e .
+cd ..
+
+# pip install procgen
+python -m train --env_name bigfish --num_processes=64 --level_replay_strategy='value_l1' --level_replay_score_transform='rank' --level_replay_temperature=0.1 --staleness_coef=0.1
+python -m train --env_name bigfish --num_processes=64 --level_replay_strategy='random'
+
+python -m train --env_name bigfish --num_processes=64 --autocurriculum
+python -m train --env_name bigfish --num_processes=64 --autocurriculum --curriculum_type='SITP-2' --reward_type='num' --min_reward=5.0
+
+        | SITP | PLR | baseline |
+bigfish |   2  |  2  |     2    |
+plunder |   2  |  2  |     1    |
+leaper  |   2  |  2  |     1    |
+miner   |   2  |  2  |     2    |
