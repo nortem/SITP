@@ -22,11 +22,11 @@ environment:
   # path_to_grid_configs: training_configs/train_maps
   autocurriculum: 
     curriculum_type: 
-      grid_search: ['TSCL']
+      grid_search: ['SITP']
     map_config: training_configs/train_maps
-    experiment_name: 'TSCL 10'
+    experiment_name: 'SITP 10'
     param:
-      experiment_name: 'TSCL 10'
+      experiment_name: 'SITP 10'
       curriculum_type: 
         grid_search: ['Online']
       policy_type: 
