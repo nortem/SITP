@@ -21,17 +21,8 @@ environment:
   name: Pogema-v0
   framestack: 1
   max_episode_steps: 32
-  # path_to_grid_configs: training_configs/train_maps_5
-  autocurriculum: 
-    curriculum_type: 'TSCL'
-    map_config: training_configs/train_maps_5
-    experiment_name: 's8-a8-r32'
-    param:
-      curriculum_type: 
-        grid_search: ['Online']
-      policy_type: 
-        grid_search: ['eps']
+  path_to_grid_configs: training_configs/train_maps_5
   grid_config:
-    num_agents: 16
+    num_agents: 8
     density: 0.3
-    size: 20
+    size: 8

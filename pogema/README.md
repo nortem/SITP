@@ -9,8 +9,12 @@ pip install -r docker/requirements.txt
 ## Training APPO
 Just run ```train.py``` with one of the configs from the experiments folder:
 ```bash
-python main.py --config_path=training_configs/mac10.yaml
+python main.py --config_path=training_configs/mac5.yaml
 ```
+
+- mac5.yaml and mac10.yaml -- SITP.
+- mac5_b.yaml and mac10_b.yaml -- baseline.
+- mac5_t.yaml and mac10_t.yaml -- TSCL.
 
 ## Docker 
 We use [crafting](https://pypi.org/project/crafting/) to automate our experiments. 
@@ -37,7 +41,7 @@ Example of ```run.yaml``` file:
 ```yaml
 container:
   image: "pogema:latest"
-  command: 'python main.py --config_path=training_configs/mac10.yaml'
+  command: 'python main.py --config_path=training_configs/mac5.yaml'
   tty: True
   environment:
     - "WANDB_API_KEY=<YOUR API KEY>"

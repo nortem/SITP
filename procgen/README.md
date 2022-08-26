@@ -1,6 +1,6 @@
 # Procgen
 
-This is a PyTorch implementation of Success Induced Task Prioritization for Procgen Benchmark based on [Prioritized Level Replay](https://arxiv.org/abs/2010.03934).
+This is a PyTorch implementation of Success Induced Task Prioritization for Procgen Benchmark based on [Prioritized Level Replay](https://github.com/facebookresearch/level-replay).
 
 ## Requirements
 ```

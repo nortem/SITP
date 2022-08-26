@@ -30,7 +30,7 @@ environment:
       curriculum_type: 
         grid_search: ['Online']
       policy_type: 
-        grid_search: ['eps', 'b']
+        grid_search: ['b']
       p_more:
         grid_search: [0.5]
   grid_config:
