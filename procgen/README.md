@@ -50,6 +50,7 @@ python -m train --env_name bigfish \
 --reward_type='num' \
 --min_reward=10.0
 ```
+The following table demonstrates minimum reward for different procgen benchmark environments:
 
 |  |  BigFish | Leaper | Plunder | Miner |
 | --- | --- | --- | --- | --- |
