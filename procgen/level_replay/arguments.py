@@ -258,8 +258,8 @@ parser.add_argument(
 parser.add_argument(
     "--curriculum_type",
     type=str, 
-    default='SITP-2',
-    choices=['SITP-1', 'SITP-2', 'SITP-min'],
+    default='SITP',
+    choices=['SITP'],
     help="Curriculum type")
 parser.add_argument(
     "--exp_name",

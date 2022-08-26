@@ -1,14 +1,14 @@
-# Prioritized Level Replay
+# Procgen
 
-This is a PyTorch implementation of [Prioritized Level Replay](https://arxiv.org/abs/2010.03934).
+This is a PyTorch implementation of Success Induced Task Prioritization for Procgen Benchmark based on [Prioritized Level Replay](https://arxiv.org/abs/2010.03934).
 
 ## Requirements
 ```
-conda create -n level-replay python=3.8
-conda activate level-replay
+conda create -n SITP python=3.8
+conda activate SITP
 
 git clone https://github.com/facebookresearch/level-replay.git
-cd level-replay
+cd SITP\procgen
 pip install -r requirements.txt
 
 # Clone a level-replay-compatible version of OpenAI Baselines.
@@ -23,7 +23,7 @@ cd procgen
 python setup.py install
 cd ..
 
-git clone https://github.com/minqi/gym-minigrid .git
+git clone https://github.com/minqi/gym-minigrid.git
 cd gym-minigrid 
 pip install -e .
 cd ..
@@ -40,16 +40,13 @@ project(codegen)
 ```
 
 ## Examples
-### Train PPO with value-based level reply with rank prioritization on BigFish
+
+### Train PPO with SITP on BigFish
+
 ```
 python -m train --env_name bigfish \
---num_processes=64 \
---level_replay_strategy='value_l1' \
---level_replay_score_transform='rank' \
---level_replay_temperature=0.1 \
---staleness_coef=0.1
+--num_processes=64 --autocurriculum \
+--curriculum_type='SITP-2' \
+--reward_type='num' \
+--min_reward=5.0
 ```
-
-
-## Acknowledgements
-The PPO implementation is largely based on Ilya Kostrikov's excellent implementation (https://github.com/ikostrikov/pytorch-a2c-ppo-acktr-gail) and Roberta Raileanu's specific integration with Procgen (https://github.com/rraileanu/auto-drac).
