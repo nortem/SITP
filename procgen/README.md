@@ -48,5 +48,9 @@ python -m train --env_name bigfish \
 --num_processes=64 --autocurriculum \
 --curriculum_type='SITP-2' \
 --reward_type='num' \
---min_reward=5.0
+--min_reward=10.0
 ```
+
+|  |  BigFish | Leaper | Plunder | Miner |
+| --- | --- | --- | --- | --- |
+|min_reward | 10 | 8 | 12 | 10 |
