@@ -7,7 +7,7 @@ This is a PyTorch implementation of Success Induced Task Prioritization for Proc
 conda create -n SITP python=3.8
 conda activate SITP
 
-git clone https://github.com/facebookresearch/level-replay.git
+git clone 
 cd SITP\procgen
 pip install -r requirements.txt
 
@@ -46,7 +46,7 @@ project(codegen)
 ```
 python -m train --env_name bigfish \
 --num_processes=64 --autocurriculum \
---curriculum_type='SITP-2' \
+--curriculum_type='SITP' \
 --reward_type='num' \
 --min_reward=10.0
 ```
