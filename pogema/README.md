@@ -1,4 +1,4 @@
-# APPO approach for Pogema environment
+# SITP for Pogema environment
 
 ## Installation
 Just install all dependencies using:
@@ -9,24 +9,7 @@ pip install -r docker/requirements.txt
 ## Training APPO
 Just run ```train.py``` with one of the configs from the experiments folder:
 ```bash
-python main.py --config_path=training_configs/multiagent-02-moving-obstacles.yaml
-python main.py --config_path=training_configs/singleagent-03-moving-obstacles-big.yaml
-```
-
-The evaluation results can be reproduced using:
-```bash
-python eval.py --num_process=16 --configs_path evaluation_configs/00-random'
-python eval.py --num_process=16 --configs_path evaluation_configs/01-street-maps/configs/city-street-maps'
-python eval.py --num_process=16 --configs_path evaluation_configs/02-dragon-age/configs/dragon-age:origins'
-python eval.py --num_process=16 --configs_path evaluation_configs/03-dragon-age2/configs/dragon-age-2'
-python eval.py --num_process=16 --configs_path evaluation_configs/04-custom-games'
-python eval.py --num_process=16 --configs_path evaluation_configs/05-warcraftIII/configs/warcraft-III-(scaled-to-512x512)'
-python eval.py --num_process=80 --configs_path evaluation_configs/06-random-multiagent
-```
-
-The movingai.com configuration can be downloaded using:
-```bash
-python evaluation/download.py
+python main.py --config_path=training_configs/mac10.yaml
 ```
 
 ## Docker 
@@ -54,7 +37,7 @@ Example of ```run.yaml``` file:
 ```yaml
 container:
   image: "pogema:latest"
-  command: 'python main.py --config_path experiments/singleagent-01-framestack.yaml'
+  command: 'python main.py --config_path=training_configs/mac10.yaml'
   tty: True
   environment:
     - "WANDB_API_KEY=<YOUR API KEY>"
@@ -68,5 +51,3 @@ host_config:
   runtime: nvidia
   shm_size: '4096m'
 ```
-
-
