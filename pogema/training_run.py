@@ -19,10 +19,9 @@ import sys
 from models.residual_net import ResnetEncoder
 from utils.config_validation import Experiment, Environment, Stage
 from wrappers.pogema_wrappers import MultiTimeLimit, LogPogemaStats, AutoResetWrapper, PogemaStackFramesWrapper, MultipleConfigsWrapper, multipleConfigsLoader
-from wrappers.multi_curriculum import CurriculumWrapper, AlwaysNAgents
+from wrappers.pogema_wrappers import AlwaysNAgents
 from wrappers.autocurriculum_SITP2 import AutoCurriculumWrapper
 from wrappers.autocurriculum_TSCL import AutoCurriculumWrapperTSCL
-from wrappers.autocurriculum_RG import AutoCurriculumWrapperReverseGoal
 
 def make_pogema(full_env_name, cfg=None, env_config=None):
     # noinspection Pydantic
@@ -154,10 +153,7 @@ def main():
         with open(params.config_path, "r") as f:
             config = yaml.safe_load(f)
 
-
-    with open(r'find_seed/sorted_seeds_00.yml', 'r') as file:
-        list_seeds = yaml.safe_load(file)
-
+    list_seeds = []
     exp, flat_config = validate_config(config, list_seeds)
     if exp.global_settings.use_wandb:
         import os

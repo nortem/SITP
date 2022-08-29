@@ -178,3 +178,32 @@ class PogemaEvaluationMonitor(gym.Wrapper):
                     print(sum([value for value in self._results.values()]) / max_len)
                     exit(0)
         return observations, reward, dones, infos
+
+   
+class AlwaysNAgents(gym.Wrapper):
+    def __init__(self, env, max_num_agents=64) -> None:
+        super().__init__(env)
+        self.num_agents = max_num_agents
+        self.env.num_agents = max_num_agents
+        self._max_num_agents = max_num_agents
+
+    def step(self, actions):
+
+        if len(actions) > self._max_num_agents:
+            raise KeyError("Number of agents can't exceed max_num_agents")
+
+        observations, reward, done, infos = self.env.step(actions[:self.config.num_agents])
+        if len(done) != self._max_num_agents:
+            for _ in range(len(done), self._max_num_agents):
+                observations.append(observations[0])
+                reward.append(reward[0])
+                done.append(done[0])
+                infos.append({'is_active': False})
+        return observations, reward, done, infos
+
+    def reset(self):
+        observations = self.env.reset()
+        if len(observations) != self._max_num_agents:
+            for i in range(len(observations), self._max_num_agents):
+                observations.append(observations[0])
+        return observations

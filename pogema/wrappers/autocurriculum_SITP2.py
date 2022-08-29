@@ -1,7 +1,7 @@
 import gym
 from sample_factory.utils.utils import log
 import numpy as np
-from task_create import init_task_maps
+from wrappers.task_create import init_task_maps
 
 class AutoCurriculumWrapper(gym.Wrapper):
     def __init__(self, env, map_config=None, c_name = None, param=None):

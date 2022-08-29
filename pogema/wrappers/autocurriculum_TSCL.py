@@ -1,6 +1,7 @@
 import gym
 from sample_factory.utils.utils import log
 import numpy as np
+from wrappers.task_create import init_task_maps
 
 class EpsilonGreedyPolicy:
     def __init__(self, epsilon=0.01):
@@ -39,18 +40,8 @@ def estimate_slope(x, y):
     A = np.vstack([x, np.ones(len(x))]).T
     c, _ = np.linalg.lstsq(A, y)[0]
     return c
-
-class Task:
-    def __init__(self, func_step, func_reset, task_name = None, param=None):
-        self.step = func_step
-        self.reset = func_reset
-        self._param = param
-        self.task_name = task_name
-        self.task_step = 0
-
-def t_empty(wrapper):
-    pass
     
+
 class AutoCurriculumWrapperTSCL(gym.Wrapper):
     def __init__(self, env, map_config=None, param=None):
         super().__init__(env)
@@ -70,7 +61,7 @@ class AutoCurriculumWrapperTSCL(gym.Wrapper):
             raise NotImplementedError
 
         self._vect_CSR = [0]*len(self._tasks_holder.tasks)
-        log.debug(f'Starting TSCL curriculum')
+        # log.debug(f'Starting TSCL curriculum')
 
 
     def step(self, actions):
@@ -109,24 +100,7 @@ class AutoCurriculumWrapperTSCL(gym.Wrapper):
             self._tasks_holder.task_change()
             self._tasks_holder.reset(self)
 
-            log.debug(f'Starting next curriculum stage:')
-            log.debug(f'Task: {self._tasks_holder.task_name()}')
-
         return self.env.reset(**kwargs)
-
-def map_reset(wrapper, map_grid_configs):
-    i = wrapper._tasks_holder.get_task()
-    grid_config = map_grid_configs[i].grid_config
-    wrapper.env.unwrapped.config = grid_config
-    wrapper.env.config = grid_config
-    print(grid_config.map_name)
-
-def init_task_maps(map_grid_configs):
-    tasks = [0]*len(map_grid_configs)
-    t_reset = lambda wrapper: map_reset(wrapper, map_grid_configs)
-    for i in range(len(map_grid_configs)):
-        tasks[i] = Task(t_empty, t_reset, task_name=map_grid_configs[i].grid_config.map_name)
-    return tasks
 
 class TasksHolder_OnlineSlopeBanditTeacher:
     def __init__(self, map_grid_configs, policy, lr=0.1):
@@ -158,8 +132,6 @@ class TasksHolder_OnlineSlopeBanditTeacher:
             self._current_task = task_indx
         else:
             p_metrics = self.policy(np.abs(self.Q) if self.abs else self.Q)
-            log.debug(f'Q: {self.Q}')
-            log.debug(f'min p: {p_metrics.min()}, max p: {p_metrics.max()}')
             self._current_task = np.random.choice(range(self._n_tasks), p=p_metrics)
 
     def task_change(self):
@@ -219,7 +191,6 @@ class TasksHolder_NaiveSlopeBanditTeacher:
             self._current_task = task_indx
         else:
             p_metrics = self.policy(np.abs(self.Q) if self.abs else self.Q)
-            log.debug(f'min p: {p_metrics.min()}, max p: {p_metrics.max()}')
             self._current_task = np.random.choice(range(self._n_tasks), p=p_metrics)
 
     def task_change(self):

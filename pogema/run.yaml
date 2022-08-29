@@ -1,6 +1,6 @@
 container:
  image: "pogema:latest"
- command: 'python main.py --config_path=training_configs/mac10.yaml'
+ command: 'python main.py --config_path=training_configs/mac5_t.yaml'
 #  command: bash
  tty: True
  environment:
